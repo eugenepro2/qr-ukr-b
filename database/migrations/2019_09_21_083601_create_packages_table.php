@@ -16,16 +16,20 @@ class CreatePackagesTable extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
-            $table->integer('projects_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('from_project')->unsigned()->nullable();
+            $table->integer('to_project')->unsigned()->nullable();
             $table->timestamps();
         });
 
         Schema::table('packages', function (Blueprint $table) {
-            $table->foreign('projects_id')->references('id')->on('projects');
+            $table->foreign('from_project')->references('id')->on('projects')->onDelete('cascade');
+            $table->foreign('to_project')->references('id')->on('projects')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
         Schema::table('items', function (Blueprint $table) {
-            $table->foreign('packages_id')->references('id')->on('packages');
+            $table->foreign('packages_id')->references('id')->on('packages')->onDelete('cascade');
         });
     }
 

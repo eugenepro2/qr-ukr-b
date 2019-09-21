@@ -11,5 +11,12 @@
 |
 */
 
+Auth::routes();
 
-Route::get('/', 'PackageController@index');
+Route::resources([
+  'package' => 'PackageController',
+  'project' => 'ProjectController'
+]);
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
