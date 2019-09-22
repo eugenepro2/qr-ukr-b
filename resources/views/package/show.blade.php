@@ -17,19 +17,21 @@
       <div class="card mb-4">
         <div class="card-body">
           <h5 class="card-title">Добавить товары к посылке</h5>
-          <form method="POST" action="{{route('items.store')}}">
-            @csrf
-            <input type="hidden" name="packages_id" value="{{$package->id}}">
-            <div class="form-group">
-              <label for="name">Название материала(item)</label>
-              <input id="name" name="name" type="text" class="form-control" placeholder="Введите название материала">
-            </div>
-            <div class="form-group">
-              <label for="count">Количество</label>
-              <input id="count" name="count" type="text" class="form-control" placeholder="Введите количество">
-            </div>
-            <button type="submit" class="btn btn-primary">Добавить</button>
-          </form>
+          @if (Auth::check())
+            <form method="POST" action="{{route('items.store')}}">
+              @csrf
+              <input type="hidden" name="packages_id" value="{{$package->id}}">
+              <div class="form-group">
+                <label for="name">Название материала(item)</label>
+                <input id="name" name="name" type="text" class="form-control" placeholder="Введите название материала">
+              </div>
+              <div class="form-group">
+                <label for="count">Количество</label>
+                <input id="count" name="count" type="text" class="form-control" placeholder="Введите количество">
+              </div>
+              <button type="submit" class="btn btn-primary">Добавить</button>
+            </form>
+          @endif
           <table class="table mt-2">
               <thead>
                 <tr>
@@ -58,8 +60,9 @@
             </table>
         </div>
       </div>
-      <div class="qr">
-          <img src="{{asset($qr)}}" alt="">
+      <div class="qr mb-4">
+          {!! $qr !!}
+        <button class="ml-5 btn btn-primary" id="download" data-file="{{$package->id}}">Скачать</button>
       </div>
       <a href="{{route('package.edit', $package->id)}}" class="btn btn-primary">Редактировать</a>
   </div>

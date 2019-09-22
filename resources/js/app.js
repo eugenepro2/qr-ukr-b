@@ -30,3 +30,32 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+// Initiate download of blob
+function download(filename, blob) {
+    if (window.navigator.msSaveOrOpenBlob) {
+    window.navigator.msSaveBlob(blob, filename);
+    } else {
+    const elem = window.document.createElement('a');
+    elem.href = window.URL.createObjectURL(blob);
+    elem.download = filename;
+    document.body.appendChild(elem);
+    elem.click();
+    document.body.removeChild(elem);
+    }
+}
+
+var svg = document.querySelector('svg');
+var data = (new XMLSerializer()).serializeToString(svg);
+
+var canvas = document.createElement('canvas');
+$('#download').click(function(){
+    let fileName = $(this).attr('data-file');
+    canvg(canvas, data, {
+        renderCallback: function () {
+            canvas.toBlob(function (blob) {
+                download(`${fileName}-qr.png`, blob);
+            });
+        }
+    });
+});

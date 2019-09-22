@@ -26,7 +26,7 @@ class PackageController extends Controller
        $package = Package::create($request->all());
        $package->user_id = Auth::user()->id;
        $package->save(); 
-       Storage::disk('public')->put("{$package->id}-qr.svg", \QrCode::size(500)->generate(env('APP_URL') . "/package/{$package->id}"));
+    //    Storage::disk('public')->put("{$package->id}-qr.svg", \QrCode::size(500)->generate(env('APP_URL') . "/package/{$package->id}"));
        return redirect()->route('package.show', $package->id);
     }
     public function show($id)
@@ -35,7 +35,8 @@ class PackageController extends Controller
         return view('package.show', [
             'package' => $package,
             'items' => Item::where('packages_id', $id)->get(),
-            'qr' => Storage::disk('public')->url("{$id}-qr.svg")
+            'qr' => \QrCode::size(500)->generate(env('APP_URL') . "/package/{$package->id}")
+            // 'qr' => Storage::disk('public')->url("{$id}-qr.svg")
         ]);
     }
     public function edit($id)
