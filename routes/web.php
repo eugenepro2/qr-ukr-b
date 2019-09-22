@@ -15,7 +15,8 @@ Auth::routes();
 
 Route::resources([
   'package' => 'PackageController',
-  'project' => 'ProjectController'
+  'project' => 'ProjectController',
+  'items' => 'ItemController'
 ]);
 Auth::routes();
 

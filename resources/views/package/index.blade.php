@@ -10,7 +10,7 @@
           <ul class="list-group mb-4">
             @if (!$packages->isEmpty())
               @foreach ($packages as $package)
-                <a href="{{route('package.edit', $package->id)}}" class="list-group-item list-group-item-action">
+                <a href="{{route('package.show', $package->id)}}" class="list-group-item list-group-item-action">
                   Название посылки: {{$package->name}} | Откуда: {{$package->fromProject->name}} | 
                   Куда: {{$package->toProject->name}} | Бригадир: {{$package->user->name}}
                 </a>

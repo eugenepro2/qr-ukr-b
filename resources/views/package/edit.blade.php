@@ -2,8 +2,9 @@
 
 @section('content')
   <div class="container">
-    <form method="POST" action="{{route('package.store')}}">
+    <form method="POST" action="{{route('package.update', $package->id)}}">
       @csrf
+      @method('PUT')
       <div class="form-group">
         <label for="packageName">Название посылки</label>
         <input type="text" class="form-control" id="packageName" name="name" 
@@ -24,13 +25,6 @@
             <option {{ ($project->id == $package->to_project) ? 'selected' : '' }} value="{{$project->id}}">{{$project->name}}</option>
           @endforeach
         </select>
-      </div>
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Добавить товары к посылке</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
       </div>
       <button type="submit" class="btn btn-primary">Сохранить</button>
     </form>

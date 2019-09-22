@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Item;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -18,7 +19,8 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
-        //
+        Item::create($request->all());
+        return redirect()->route('package.show', $request->packages_id);
     }
 
     public function show($id)
@@ -38,6 +40,9 @@ class ItemController extends Controller
 
     public function destroy($id)
     {
-        //
+        $item = Item::find($id);
+        $packages_id = $item->packages_id;
+        $item->delete();
+        return redirect()->route('package.show', $packages_id);
     }
 }
