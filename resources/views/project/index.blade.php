@@ -10,7 +10,7 @@
             <ul class="list-group mb-4">
               @if (!$projects->isEmpty())
                 @foreach ($projects as $project)
-                  <a href="{{route('project.edit', $project->id)}}" class="list-group-item list-group-item-action d-flex justify-content-between">
+                  <a href="{{route('project.edit', $project->id)}}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                       {{$project->name}}
                       <form method="POST" action="{{route('project.destroy', $project->id)}}">
                         @csrf

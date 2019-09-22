@@ -5,7 +5,7 @@
       @if (Auth::id() == $package->user_id)
         <div class="d-flex">
             <a href="{{route('package.edit', $package->id)}}" class="btn btn-primary mr-2">Редактировать посылку</a>
-            <form method="POST" action="{{route('package.destroy', $package->id)}}">
+            <form method="POST" action="{{route('package.destroy', $package->id)}}" onsubmit="return confirm('Вы уверены что хотите удалить посылку?')">
               @csrf
               @method('DELETE')
               <button type="submit" class="btn btn-danger">Удалить посылку</button>
@@ -26,8 +26,8 @@
       </div>
       <div class="card mb-4">
         <div class="card-body">
-          <h5 class="card-title">Добавить товары к посылке</h5>
           @if (Auth::id() == $package->user_id)
+            <h5 class="card-title">Добавить товары к посылке</h5>
             <form method="POST" action="{{route('items.store')}}">
               @csrf
               <input type="hidden" name="packages_id" value="{{$package->id}}">
