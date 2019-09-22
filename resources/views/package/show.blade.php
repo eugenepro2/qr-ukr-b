@@ -2,7 +2,16 @@
 
 @section('content')
   <div class="container">
-      <a href="{{route('package.edit', $package->id)}}" class="btn btn-primary">Редактировать посылку</a>
+      @if (Auth::id() == $package->user_id)
+        <div class="d-flex">
+            <a href="{{route('package.edit', $package->id)}}" class="btn btn-primary mr-2">Редактировать посылку</a>
+            <form method="POST" action="{{route('package.destroy', $package->id)}}">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-danger">Удалить посылку</button>
+            </form>
+        </div>
+      @endif
       <div class="form-group">
         <label>Название посылки</label>
         <input disabled type="text" class="form-control" value="{{$package->name}}">

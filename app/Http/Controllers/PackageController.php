@@ -58,6 +58,6 @@ class PackageController extends Controller
     public function destroy($id)
     {
         Package::find($id)->delete();
-        return redirect()->route('project.index');
+        return redirect()->route('package.index');
     }
 }
