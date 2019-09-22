@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Storage;
 
 class PackageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['show']]);
+    }
     public function index()
     {
         return view('package.index', [

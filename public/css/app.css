@@ -10644,3 +10644,7 @@ a.text-dark:focus {
   }
 }
 
+.qr svg {
+  width: 100%;
+}
+

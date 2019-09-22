@@ -2,6 +2,7 @@
 
 @section('content')
   <div class="container">
+      <a href="{{route('package.edit', $package->id)}}" class="btn btn-primary">Редактировать посылку</a>
       <div class="form-group">
         <label>Название посылки</label>
         <input disabled type="text" class="form-control" value="{{$package->name}}">
@@ -17,7 +18,7 @@
       <div class="card mb-4">
         <div class="card-body">
           <h5 class="card-title">Добавить товары к посылке</h5>
-          @if (Auth::check())
+          @if (Auth::id() == $package->user_id)
             <form method="POST" action="{{route('items.store')}}">
               @csrf
               <input type="hidden" name="packages_id" value="{{$package->id}}">
@@ -48,11 +49,13 @@
                     <td>{{$item->name}}</td>
                     <td>{{$item->count}}</td>
                     <td>
+                      @if (Auth::id() == $package->user_id)
                       <form method="POST" action="{{route('items.destroy', $item->id)}}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Удалить</button>
                       </form>
+                      @endif
                     </td>
                   </tr>    
                 @endforeach
@@ -62,8 +65,10 @@
       </div>
       <div class="qr mb-4">
           {!! $qr !!}
-        <button class="ml-5 btn btn-primary" id="download" data-file="{{$package->id}}">Скачать</button>
+        <div class="d-flex justify-content-center mt-4 mb-4">
+            <button class="btn btn-primary" id="download" data-file="{{$package->id}}">Скачать</button>
+        </div>
       </div>
-      <a href="{{route('package.edit', $package->id)}}" class="btn btn-primary">Редактировать</a>
+      
   </div>
 @endsection
