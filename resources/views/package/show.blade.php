@@ -59,7 +59,7 @@
         </div>
       </div>
       <div class="qr">
-          <img src="{{asset('storage/20-qr.svg')}}" alt="">
+          <img src="{{asset($qr)}}" alt="">
       </div>
       <a href="{{route('package.edit', $package->id)}}" class="btn btn-primary">Редактировать</a>
   </div>

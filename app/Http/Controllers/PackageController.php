@@ -35,7 +35,7 @@ class PackageController extends Controller
         return view('package.show', [
             'package' => $package,
             'items' => Item::where('packages_id', $id)->get(),
-            'qr' => Storage::url("{$package->id}-qr.svg")
+            'qr' => Storage::disk('public')->url("{$id}-qr.svg")
         ]);
     }
     public function edit($id)

@@ -21,3 +21,8 @@ Route::resources([
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('storage/{file}', function ($file) {
+  $path = storage_path('app' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . $file);
+  return response()->file($path);
+});
